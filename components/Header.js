@@ -81,7 +81,7 @@ function Header() {
 
           <img
             className="h-10 w-10 cursor-pointer rounded-full"
-            src="https://links.papareact.com/jjm"
+            src="https://links.papareact.com/3ke"
             alt="Profile Pic"
           />
         </div>
