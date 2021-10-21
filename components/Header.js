@@ -11,10 +11,13 @@ import {
 import { HomeIcon } from "@heroicons/react/solid";
 import { signIn, signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
+import { useRecoilState } from "recoil";
+import { modalState } from "../atoms/modalAtoms";
 
 function Header() {
   const { data: session } = useSession();
   const router = useRouter();
+  const [open, setOpen] = useRecoilState(modalState);
 
   return (
     <div className="shadow-sm border-b bg-white sticky top-0 z-50">
@@ -82,6 +85,7 @@ function Header() {
               </div>
 
               <PlusCircleIcon
+                onClick={() => setOpen(true)}
                 className="hidden h-6 md:inline-flex cursor-pointer 
                             hover:scale-125 transition-all duration-150 ease-out"
               />
