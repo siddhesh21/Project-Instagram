@@ -9,8 +9,12 @@ import {
   MenuIcon,
 } from "@heroicons/react/outline";
 import { HomeIcon } from "@heroicons/react/solid";
+import { signIn, signOut, useSession } from "next-auth/react";
 
 function Header() {
+  const { data: session } = useSession();
+  // console.log(session);
+
   return (
     <div className="shadow-sm border-b bg-white sticky top-0 z-50">
       <div className="flex justify-between max-w-6xl mx-5 xl:mx-auto">
@@ -50,40 +54,48 @@ function Header() {
                       hover:scale-125 transition-all duration-150 ease-out"
           />
           <MenuIcon className="h-6 md:hidden cursor-pointer" />
-          <div
-            className="relative hidden h-6 md:inline-flex cursor-pointer 
-                        hover:scale-125 transition-all duration-150 ease-out"
-          >
-            <PaperAirplaneIcon
-              className="hidden h-6 md:inline-flex cursor-pointer rotate-45
-                        hover:scale-125 transition-all duration-150 ease-out"
-            />
-            <div
-              className="absolute -top-2 -right-2 text-xs w-5 h-5 bg-blue-600 
-            flex items-center justify-center rounded-full animate-pulse text-white"
-            >
-              3
-            </div>
-          </div>
 
-          <PlusCircleIcon
-            className="hidden h-6 md:inline-flex cursor-pointer 
-            hover:scale-125 transition-all duration-150 ease-out"
-          />
-          <UserGroupIcon
-            className="hidden h-6 md:inline-flex cursor-pointer 
-    hover:scale-125 transition-all duration-150 ease-out"
-          />
-          <HeartIcon
-            className="hidden h-6 md:inline-flex cursor-pointer 
-    hover:scale-125 transition-all duration-150 ease-out"
-          />
+          {session ? (
+            <>
+              <div
+                className="relative hidden h-6 md:inline-flex cursor-pointer 
+                          hover:scale-125 transition-all duration-150 ease-out"
+              >
+                <PaperAirplaneIcon
+                  className="hidden h-6 md:inline-flex cursor-pointer rotate-45
+                          hover:scale-125 transition-all duration-150 ease-out"
+                />
+                <div
+                  className="absolute -top-2 -right-2 text-xs w-5 h-5 bg-blue-600 
+                              flex items-center justify-center rounded-full animate-pulse text-white"
+                >
+                  3
+                </div>
+              </div>
 
-          <img
-            className="h-10 w-10 cursor-pointer rounded-full"
-            src="https://links.papareact.com/3ke"
-            alt="Profile Pic"
-          />
+              <PlusCircleIcon
+                className="hidden h-6 md:inline-flex cursor-pointer 
+                            hover:scale-125 transition-all duration-150 ease-out"
+              />
+              <UserGroupIcon
+                className="hidden h-6 md:inline-flex cursor-pointer 
+                            hover:scale-125 transition-all duration-150 ease-out"
+              />
+              <HeartIcon
+                className="hidden h-6 md:inline-flex cursor-pointer 
+                            hover:scale-125 transition-all duration-150 ease-out"
+              />
+
+              <img
+                onClick={signOut}
+                className="h-10 w-10 cursor-pointer rounded-full"
+                src={session.user.image}
+                alt="Profile Pic"
+              />
+            </>
+          ) : (
+            <button onClick={signIn}>Sign In</button>
+          )}
         </div>
       </div>
     </div>
